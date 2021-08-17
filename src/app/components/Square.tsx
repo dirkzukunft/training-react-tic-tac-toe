@@ -1,7 +1,14 @@
 import React from 'react';
 
-function Square(): JSX.Element {
-  return <button className="square">{/* TODO */}</button>;
-}
+type SquareProps = {
+  value: string;
+  onClick: () => void;
+};
 
-export default Square;
+export default function Square(props: SquareProps): JSX.Element {
+  return (
+    <button className="square" onClick={() => props.onClick()}>
+      {props.value}
+    </button>
+  );
+}
