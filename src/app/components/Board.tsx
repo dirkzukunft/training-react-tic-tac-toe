@@ -3,7 +3,7 @@ import Square from './Square';
 
 export default function Board(): JSX.Element {
   const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
 
   function handleClick(i: number) {
     if (calculateWinner(squares) || squares[i]) return;
@@ -17,7 +17,7 @@ export default function Board(): JSX.Element {
     return <Square value={squares[i]} onClick={() => handleClick(i)} />;
   }
 
-  function calculateWinner(squares: string[]) {
+  function calculateWinner(squares: string[]): string | null {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
