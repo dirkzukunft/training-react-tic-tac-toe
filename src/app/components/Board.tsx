@@ -6,11 +6,11 @@ export default function Board(): JSX.Element {
   const [xIsNext, setXIsNext] = useState(true);
 
   function handleClick(i: number) {
+    if (calculateWinner(squares) || squares[i]) return;
     const newSquares = squares.slice();
     newSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
-    calculateWinner(newSquares);
   }
 
   function renderSquare(i: number) {
@@ -29,6 +29,7 @@ export default function Board(): JSX.Element {
       [2, 4, 6],
     ];
 
+    let winner = null;
     lines.forEach((line) => {
       const [a, b, c] = line;
       if (
@@ -36,15 +37,18 @@ export default function Board(): JSX.Element {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        // return squares[a];
-        alert(`${squares[a]} wins!`);
+        winner = squares[a];
+        return;
       }
     });
 
-    return null;
+    return winner;
   }
 
-  const status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  const winner = calculateWinner(squares);
+  const status = winner
+    ? 'Winner: ' + winner
+    : 'Next player: ' + (xIsNext ? 'X' : 'O');
 
   return (
     <div>
