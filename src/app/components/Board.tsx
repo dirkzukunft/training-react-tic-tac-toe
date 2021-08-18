@@ -7,7 +7,7 @@ export default function Board(): JSX.Element {
 
   function handleClick(i: number) {
     if (calculateWinner(squares) || squares[i]) return;
-    const newSquares = squares.slice();
+    const newSquares = [...squares];
     newSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
@@ -47,8 +47,8 @@ export default function Board(): JSX.Element {
 
   const winner = calculateWinner(squares);
   const status = winner
-    ? 'Winner: ' + winner
-    : 'Next player: ' + (xIsNext ? 'X' : 'O');
+    ? `Winner: ${winner}`
+    : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
     <div>
